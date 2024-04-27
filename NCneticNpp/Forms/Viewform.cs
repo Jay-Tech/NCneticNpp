@@ -1,4 +1,4 @@
-﻿using Kbg.NppPluginNET.PluginInfrastructure;
+﻿
 
 using System;
 using System.Collections.Generic;
@@ -358,22 +358,22 @@ namespace NCneticNpp
             view.Recenter();
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            //Listen for the closing of the dockable panel as the result of Npp native close ("cross") button on the window
-            switch (m.Msg)
-            {
-                case 78: // Win32.WM_NOTIFY
-                    var notify = (ScNotificationHeader)Marshal.PtrToStructure(m.LParam, typeof(ScNotificationHeader));
-                    if (notify.Code == (int)DockMgrMsg.DMN_CLOSE)
-                    {
-                        CloseClick?.Invoke(this, new CloseClickEventArgs());
-                        currentLine = -1;
-                        currentFile = "";
-                    }
-                    break;
-            }
-            base.WndProc(ref m);
-        }
+        //protected override void WndProc(ref Message m)
+        //{
+            ////Listen for the closing of the dockable panel as the result of Npp native close ("cross") button on the window
+            //switch (m.Msg)
+            //{
+            //    case 78: // Win32.WM_NOTIFY
+            //        var notify = (ScNotificationHeader)Marshal.PtrToStructure(m.LParam, typeof(ScNotificationHeader));
+            //        if (notify.Code == (int)DockMgrMsg.DMN_CLOSE)
+            //        {
+            //            CloseClick?.Invoke(this, new CloseClickEventArgs());
+            //            currentLine = -1;
+            //            currentFile = "";
+            //        }
+            //        break;
+            //}
+            //base.WndProc(ref m);
+        //}
     }
 }
