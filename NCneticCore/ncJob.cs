@@ -9,14 +9,19 @@ using System.Xml;
 
 namespace NCneticCore
 {
-    public class ncJob
+    public class NcJob
     {
         public string FileName = String.Empty;
-        public string Text = String.Empty;
-        public List<ncMove> MoveList = new List<ncMove>();
+        
 
         public event EventHandler EndProcessing;
+        public List<string> TextList; 
+        public List<ncMove> MoveList = new List<ncMove>();
 
+        public NcJob()
+        {
+            TextList = new List<string>();
+        }
         public void Process(ncMachine machine)
         {
             BackgroundWorker worker = new BackgroundWorker();
@@ -25,7 +30,7 @@ namespace NCneticCore
             {
                 MoveList = new List<ncMove>();
                 ncParser parser = new ncParser();
-                parser.ComputeRawJob(Text, machine.Lexer);
+                parser.ComputeRawJob(TextList, machine.Lexer);
                 MoveList = FAO.GetMoveList(parser.Rawoperation, machine.Definition);
             });
 

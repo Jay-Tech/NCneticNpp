@@ -42,10 +42,10 @@ namespace NCneticCore
 
         #region methods
 
-        internal void ComputeRawJob(string text, ncLexer lexer)
+        internal void ComputeRawJob(List<string> textList, ncLexer lexer)
         {
             Reset();
-            string[] Lines = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] Lines = textList.ToArray();
 
             int p = 0;
             for (int l = 0; l < Lines.Count(); l++)

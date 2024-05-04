@@ -35,9 +35,6 @@
     <PackageReference Include="OpenTK" Version="3.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="NCneticCore">
-      <HintPath>..\NCneticCore\bin\Debug\NCneticCore.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -53,6 +50,12 @@
     <Compile Include="ncView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VSFS.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NCneticCore\NCneticCore.csproj">
+      <Project>{9D3E16BE-A704-40F9-AEC1-FC39DA1F8715}</Project>
+      <Name>NCneticCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

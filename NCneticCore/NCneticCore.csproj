@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FAO.cs" />
-    <Compile Include="ncJob.cs" />
+    <Compile Include="NcJob.cs" />
     <Compile Include="ncMachine.cs" />
     <Compile Include="ncParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

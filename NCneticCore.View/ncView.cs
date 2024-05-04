@@ -357,13 +357,13 @@ namespace NCneticCore.View
 
         #region loading
 
-        public void LoadJob(ncJob job)
+        public void LoadJob(NcJob job)
         {
             LoadWork(job);
             LoadComplete(job);
         }
 
-        public void LoadJobAsync(ncJob job)
+        public void LoadJobAsync(NcJob job)
         {
             BackgroundWorker worker = new BackgroundWorker();
 
@@ -380,7 +380,7 @@ namespace NCneticCore.View
             worker.RunWorkerAsync();
         }
 
-        private void LoadWork(ncJob job)
+        private void LoadWork(NcJob job)
         {
             StartLoading?.Invoke(this, new EventArgs());
 
@@ -482,7 +482,7 @@ namespace NCneticCore.View
             ObjCollection.MoveObjList = moveList;
         }
 
-        private void LoadComplete(ncJob job)
+        private void LoadComplete(NcJob job)
         {
             RefreshTimer.Stop();
 

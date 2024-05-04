@@ -1,22 +1,13 @@
 ﻿
-
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 using NCneticCore;
 using NCneticCore.View;
 using System.Globalization;
-using System.Reflection.Emit;
-using OpenTK.Input;
-using OpenTK;
-using System.Diagnostics;
+
 using System.IO;
 using static System.Windows.Forms.LinkLabel;
 
@@ -25,7 +16,7 @@ namespace NCneticNpp
     public partial class ViewForm : Form
     {
         ncView view;
-        ncJob job;
+        private NcJob job;
 
         int DownMouseX = 0;
         int DownMouseY = 0;
@@ -162,11 +153,19 @@ namespace NCneticNpp
         public void LoadFile(string file, string text, ncMachine mach, int cam)
         {
             currentFile = file;
+          
+
             ReadFile(currentFile);
-            job = new ncJob
+            List<string> gList = new List<string>();
+            foreach (var line in GCodeList)
+            {
+                gList.Add(line.GCode);
+            }
+            job = new NcJob
             {
                 FileName = file,
-                Text = text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n")
+                TextList = gList
+               
             };
 
             job.Process(mach);
