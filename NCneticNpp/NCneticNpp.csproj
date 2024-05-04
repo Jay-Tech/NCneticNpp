@@ -103,6 +103,9 @@
     <EmbeddedResource Include="Forms\Viewform.resx">
       <DependentUpon>Viewform.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainFormView.resx">
+      <DependentUpon>MainFormView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

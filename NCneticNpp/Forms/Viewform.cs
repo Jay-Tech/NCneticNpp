@@ -27,7 +27,16 @@ namespace NCneticNpp
 
         int DownMouseX = 0;
         int DownMouseY = 0;
+        static string iniFilePath = null;
+        static ViewForm frmMyDlg = null;
+        static Bitmap tbBmp = NCneticNpp.Properties.Resources.icon;
+        static Bitmap tbBmp_tbTab = NCneticNpp.Properties.Resources.icon;
+        static Icon tbIcon = null;
+        private ncMachine mach;
 
+
+        static bool styling = true;
+        static int cam = 0;
         public int currentLine = -1;
 
         public string currentFile = "";
@@ -55,8 +64,8 @@ namespace NCneticNpp
 
         public ViewForm()
         {
-            InitializeComponent();
-
+            InitializeComponent(); 
+            mach = new ncMachine();
             view = new ncView(new ncViewOptions());
             view.IniGraphicContext(this.Handle);
 
@@ -123,6 +132,7 @@ namespace NCneticNpp
 
             view.MoveSelected += new ncView.MoveSelectedkEventHandler((s,ea) =>
             {
+                if(job==null)return;
                 int selId = job.MoveList.FindIndex(x => x.MoveGuid == ea.guid);
 
                 if (selId >= 0 && selId < job.MoveList.Count)
@@ -151,9 +161,11 @@ namespace NCneticNpp
         {
             currentFile = file;
 
-            job = new ncJob();
-            job.FileName = file;
-            job.Text = text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
+            job = new ncJob
+            {
+                FileName = file,
+                Text = text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n")
+            };
 
             job.Process(mach);
 
@@ -358,22 +370,46 @@ namespace NCneticNpp
             view.Recenter();
         }
 
+        private void btnFileLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse Text Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "txt",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var file = openFileDialog1.FileName;
+                LoadFile(file, " ", mach, 0);
+            }
+        }
+
         //protected override void WndProc(ref Message m)
         //{
-            ////Listen for the closing of the dockable panel as the result of Npp native close ("cross") button on the window
-            //switch (m.Msg)
-            //{
-            //    case 78: // Win32.WM_NOTIFY
-            //        var notify = (ScNotificationHeader)Marshal.PtrToStructure(m.LParam, typeof(ScNotificationHeader));
-            //        if (notify.Code == (int)DockMgrMsg.DMN_CLOSE)
-            //        {
-            //            CloseClick?.Invoke(this, new CloseClickEventArgs());
-            //            currentLine = -1;
-            //            currentFile = "";
-            //        }
-            //        break;
-            //}
-            //base.WndProc(ref m);
+        ////Listen for the closing of the dockable panel as the result of Npp native close ("cross") button on the window
+        //switch (m.Msg)
+        //{
+        //    case 78: // Win32.WM_NOTIFY
+        //        var notify = (ScNotificationHeader)Marshal.PtrToStructure(m.LParam, typeof(ScNotificationHeader));
+        //        if (notify.Code == (int)DockMgrMsg.DMN_CLOSE)
+        //        {
+        //            CloseClick?.Invoke(this, new CloseClickEventArgs());
+        //            currentLine = -1;
+        //            currentFile = "";
+        //        }
+        //        break;
+        //}
+        //base.WndProc(ref m);
         //}
     }
 }
