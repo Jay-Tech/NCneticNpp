@@ -190,6 +190,7 @@ namespace NCneticNpp
             this.lbGcodeList.Name = "lbGcodeList";
             this.lbGcodeList.Size = new System.Drawing.Size(399, 680);
             this.lbGcodeList.TabIndex = 1;
+            this.lbGcodeList.SelectedIndexChanged += LbGcodeList_SelectedIndexChanged;
             // 
             // ViewForm
             // 
@@ -211,6 +212,8 @@ namespace NCneticNpp
             this.PerformLayout();
 
         }
+
+       
 
         #endregion
 

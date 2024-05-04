@@ -17,6 +17,8 @@ using System.Reflection.Emit;
 using OpenTK.Input;
 using OpenTK;
 using System.Diagnostics;
+using System.IO;
+using static System.Windows.Forms.LinkLabel;
 
 namespace NCneticNpp
 {
@@ -160,7 +162,7 @@ namespace NCneticNpp
         public void LoadFile(string file, string text, ncMachine mach, int cam)
         {
             currentFile = file;
-
+            ReadFile(currentFile);
             job = new ncJob
             {
                 FileName = file,
@@ -174,7 +176,7 @@ namespace NCneticNpp
             job.EndProcessing += new EventHandler((s, ea) =>
             {
                 view.LoadJob(job);
-
+               
                 SetCam(cam);
 
                 trackBar.Minimum = 0;
@@ -183,15 +185,52 @@ namespace NCneticNpp
                 trackBar.LargeChange = trackBar.Maximum / 20;
 
                 progressBar.Style = ProgressBarStyle.Continuous;
-                ResetSelection();
-                SetSelection(1);
+                
 
                
             });
-        }
+            
 
+            ResetSelection();
+            SetSelection(1);
+            lbGcodeList.Text = currentFile;
+        }
+        string _line  = string.Empty;
+        public List<GCodeLine> GCodeList = new List<GCodeLine>();
+        private int _index = 0;
+        private void ReadFile(string file)
+        {
+            StreamReader sr = new StreamReader(file);
+            _line = sr.ReadLine();
+            while (_line != null)
+            {
+                if (!string.IsNullOrEmpty(_line) && !_line.StartsWith("(") && !_line.EndsWith(")"))
+                {
+                    GCodeList.Add(new GCodeLine(_line,_index));
+                    _index++;
+                }
+                _line = sr.ReadLine();
+
+            }
+            sr.Close();
+            var bs = new BindingSource();
+            bs.DataSource = GCodeList;
+
+            lbGcodeList.DataSource = GCodeList;
+            lbGcodeList.DisplayMember = "GCode";
+            lbGcodeList.ValueMember = "LineNumber";
+            ResetSelection();
+
+
+        }
+        private void LbGcodeList_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var index = lbGcodeList.SelectedIndex;
+            SetSelection(index);
+        }
         public void SetSelection(int line)
         {
+            if(job?.MoveList ==null)return;
             ncMove sel = job.MoveList.Find(x => x.MoveGuid == view.SelGuid);
 
             if (sel != null)
@@ -415,5 +454,16 @@ namespace NCneticNpp
         //}
         //base.WndProc(ref m);
         //}
+    }
+}
+public class GCodeLine
+{
+    public int LineNumber { get; set; }
+    public string GCode { get; set; }
+
+    public GCodeLine(string text, int lineNumber)
+    {
+        GCode = text;
+        LineNumber = lineNumber;
     }
 }
