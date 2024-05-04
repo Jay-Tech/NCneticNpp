@@ -30,7 +30,6 @@ namespace NCneticNpp
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewForm));
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.xStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -40,13 +39,14 @@ namespace NCneticNpp
             this.fStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.sStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.glControl = new OpenTK.GLControl();
             this.panel = new System.Windows.Forms.Panel();
+            this.btnFileLoad = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.btnFileLoad = new System.Windows.Forms.Button();
+            this.lbGcodeList = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.panel.SuspendLayout();
@@ -125,22 +125,19 @@ namespace NCneticNpp
             // 
             // toolStripDropDownButton1
             // 
-
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(13, 29);
             // 
-            // loadFileToolStripMenuItem
+            // toolStripProgressBar1
             // 
-
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(300, 25);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem1.Text = "toolStripMenuItem1";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(300, 25);
             // 
             // glControl
             // 
@@ -154,12 +151,23 @@ namespace NCneticNpp
             // 
             // panel
             // 
+            this.panel.Controls.Add(this.lbGcodeList);
             this.panel.Controls.Add(this.btnFileLoad);
             this.panel.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel.Location = new System.Drawing.Point(0, 31);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(200, 758);
+            this.panel.Size = new System.Drawing.Size(429, 758);
             this.panel.TabIndex = 0;
+            // 
+            // btnFileLoad
+            // 
+            this.btnFileLoad.Location = new System.Drawing.Point(13, 20);
+            this.btnFileLoad.Name = "btnFileLoad";
+            this.btnFileLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnFileLoad.TabIndex = 0;
+            this.btnFileLoad.Text = "LoadFile";
+            this.btnFileLoad.UseVisualStyleBackColor = true;
+            this.btnFileLoad.Click += new System.EventHandler(this.btnFileLoad_Click);
             // 
             // progressBar
             // 
@@ -175,15 +183,13 @@ namespace NCneticNpp
             // 
             this.fileDialog.FileName = "Open File";
             // 
-            // btnFileLoad
+            // lbGcodeList
             // 
-            this.btnFileLoad.Location = new System.Drawing.Point(13, 20);
-            this.btnFileLoad.Name = "btnFileLoad";
-            this.btnFileLoad.Size = new System.Drawing.Size(75, 23);
-            this.btnFileLoad.TabIndex = 0;
-            this.btnFileLoad.Text = "LoadFile";
-            this.btnFileLoad.UseVisualStyleBackColor = true;
-            this.btnFileLoad.Click += new System.EventHandler(this.btnFileLoad_Click);
+            this.lbGcodeList.FormattingEnabled = true;
+            this.lbGcodeList.Location = new System.Drawing.Point(13, 63);
+            this.lbGcodeList.Name = "lbGcodeList";
+            this.lbGcodeList.Size = new System.Drawing.Size(399, 680);
+            this.lbGcodeList.TabIndex = 1;
             // 
             // ViewForm
             // 
@@ -224,5 +230,6 @@ namespace NCneticNpp
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private Button btnFileLoad;
         private OpenFileDialog fileDialog;
+        private ListBox lbGcodeList;
     }
 }

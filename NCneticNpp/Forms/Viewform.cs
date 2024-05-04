@@ -183,6 +183,10 @@ namespace NCneticNpp
                 trackBar.LargeChange = trackBar.Maximum / 20;
 
                 progressBar.Style = ProgressBarStyle.Continuous;
+                ResetSelection();
+                SetSelection(1);
+
+               
             });
         }
 
